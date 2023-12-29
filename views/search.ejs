@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+
+<body>
+    <h1>Search Results for "<%= searchTerm %>" </h1>
+    <% if(searchResults.length===0){ %>
+        <p>No Results found</p>
+        <% }else{ %>
+            <ul>
+                <% searchResults.forEach(post=>{ %>
+                    <li>
+                        <h3>
+                            <%= post.title %>
+                        </h3>
+                        <p>
+                            <%= post.content %>
+                        </p>
+                    </li>
+                    <% }); %>
+            </ul>
+            <% } %>
+            <a href="/">Back to home</a>
+</body>
+
+</html>
