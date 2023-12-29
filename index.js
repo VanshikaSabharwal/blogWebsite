@@ -1,5 +1,5 @@
 import express from "express";
-
+import session from "express-session";
 const app = express();
 const port = 660;
 
@@ -11,9 +11,15 @@ const blogPosts = [
     { id: 1, title: 'First Post', content: 'This is the content of first post.' },
     { id: 2, title: 'Second Post', content: 'This is the content of second post.' }
 ];
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true
+}))
+
 
 app.get('/', (req, res) =>
-    res.render('index', { blogPosts }));
+    res.render('blog', { blogPosts }));
 
 app.get('/post/:id', (req, res) => {
     const postId = req.params.id;
@@ -46,6 +52,8 @@ app.get('/search', (req, res) => {
     const searchResults = blogPosts.filter(post => post.title.toLowerCase().includes(searchTerm));
     res.render('search', { searchResults, searchTerm });
 });
+
+
 
 app.listen(port, () => {
     console.log(`Listening to server at port ${port}`);
